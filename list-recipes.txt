@@ -97,11 +97,12 @@ GIMP.munki
 Gimp.pkg
 Go.download
 Go.munki
-Google Drive.jss
 GoogleChrome.download
 GoogleChrome.install
 GoogleChrome.munki
 GoogleChrome.pkg
+GoogleDrive.download
+GoogleDrive.munki
 GoogleEarth.download
 GoogleEarth.munki
 GoogleEarth.pkg
