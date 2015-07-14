@@ -80,7 +80,10 @@ Evernote.munki
 Evernote.pkg
 Facter.download
 Facter.munki
-FileZilla-Win.download
+FileZilla.download
+FileZilla.munki
+FileZilla_beta.munki
+FileZilla_nightly.munki
 Final Cut Pro.jss
 Firefox.download
 Firefox.install
