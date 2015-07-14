@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Downloads the latest GIMP. Set FLAVOUR to either 'lisanet.de' or 'gimp.org' to decide which available build to download. See http://www.gimp.org/downloads/ for details and differences between the builds.</string>
+	<key>Identifier</key>
+	<string>io.github.hjuutilainen.download.GIMP</string>
+	<key>Input</key>
+	<dict>
+		<key>FLAVOUR</key>
+		<string>lisanet.de</string>
+		<key>SYSTEM_VERSION</key>
+		<string>MountainLion</string>
+		<key>NAME</key>
+		<string>GIMP</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>0.3.1</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>GIMPURLProvider</string>
+			<key>Arguments</key>
+			<dict>
+				<key>flavour</key>
+				<string>%FLAVOUR%</string>
+				<key>system_version</key>
+				<string>%SYSTEM_VERSION%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>URLDownloader</string>
+			<key>Arguments</key>
+			<dict>
+				<key>filename</key>
+				<string>%NAME%.dmg</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>EndOfCheckPhase</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>CodeSignatureVerifier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>input_path</key>
+				<string>%pathname%/Gimp.app</string>
+				<key>expected_authority_names</key>
+				<array>
+					<string>Developer ID Application: Simone Lehmann</string>
+					<string>Developer ID Certification Authority</string>
+					<string>Apple Root CA</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>

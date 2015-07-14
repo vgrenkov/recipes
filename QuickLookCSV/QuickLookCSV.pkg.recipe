@@ -2,59 +2,61 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>Description</key>
-    <string>Downloads the current release version of 'The Unarchiver' and builds a package.</string>
-    <key>Identifier</key>
-    <string>com.github.autopkg.pkg.TheUnarchiver</string>
-    <key>Input</key>
-    <dict>
-        <key>NAME</key>
-        <string>TheUnarchiver</string>
-    </dict>
+	<key>Description</key>
+	<string>Downloads the latest version of the QuickLookCSV ql plugin.</string>
+	<key>Identifier</key>
+	<string>com.github.jps3.pkg.QuickLookCSV</string>
+	<key>Input</key>
+	<dict>
+		<key>ID</key>
+		<string>com.google.code.quicklookcsv</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>0.2.9</string>
     <key>ParentRecipe</key>
-    <string>com.github.autopkg.download.TheUnarchiver</string>
-    <key>MinimumVersion</key>
-    <string>0.2.0</string>
-    <key>Process</key>
-    <array>
-        <dict>
-            <key>Processor</key>
-            <string>PkgRootCreator</string>
+	<string>com.github.jps3.download.QuickLookCSV</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>PkgRootCreator</string>
             <key>Arguments</key>
             <dict>
                 <key>pkgroot</key>
-                <string>%RECIPE_CACHE_DIR%/%NAME%</string>
+                <string>%RECIPE_CACHE_DIR%/pkgroot</string>
                 <key>pkgdirs</key>
                 <dict>
-                    <key>Applications</key>
-                    <string>0775</string>
+                    <key>Library</key>
+                    <string>0755</string>
+                    <key>Library/QuickLook</key>
+                    <string>0755</string>
                 </dict>
             </dict>
         </dict>
         <dict>
             <key>Processor</key>
-            <string>Unarchiver</string>
+            <string>Copier</string>
             <key>Arguments</key>
             <dict>
-                <key>archive_path</key>
-                <string>%pathname%</string>
+                <key>source_path</key>
+                <string>%pathname%/%NAME%.qlgenerator</string>
                 <key>destination_path</key>
-                <string>%pkgroot%/Applications</string>
-                <key>purge_destination</key>
-                <true/>
+                <string>%pkgroot%/Library/QuickLook/%NAME%.qlgenerator</string>
             </dict>
         </dict>
         <dict>
-            <key>Comment</key>
-            <string>Get version from the app</string>
             <key>Processor</key>
-            <string>Versioner</string>
+            <string>PkgInfoCreator</string>
             <key>Arguments</key>
             <dict>
-                <key>input_plist_path</key>
-                <string>%pkgroot%/Applications/The Unarchiver.app/Contents/Info.plist</string>
-                <key>plist_version_key</key>
-                <string>CFBundleShortVersionString</string>
+                <key>template_path</key>
+                <string>PackageInfoTemplate</string>
+                <key>infofile</key>
+                <string>%RECIPE_CACHE_DIR%/PageInfo</string>
+                <key>pkgtype</key>
+                <string>flat</string>
+                <key>version</key>
+                <string>%version%</string>
             </dict>
         </dict>
         <dict>
@@ -66,17 +68,19 @@
                 <dict>
                     <key>pkgname</key>
                     <string>%NAME%-%version%</string>
-                    <key>version</key>
-                    <string>%version%</string>
                     <key>id</key>
-                    <string>cx.c3.theunarchiver</string>
+                    <string>%ID%</string>
+                    <key>resources</key>
+                    <string>Resources</string>
                     <key>options</key>
                     <string>purge_ds_store</string>
+                    <key>scripts</key>
+                    <string>Scripts</string>
                     <key>chown</key>
                     <array>
                         <dict>
                             <key>path</key>
-                            <string>Applications</string>
+                            <string>/Library/QuickLook</string>
                             <key>user</key>
                             <string>root</string>
                             <key>group</key>
@@ -86,6 +90,6 @@
                 </dict>
             </dict>
         </dict>
-    </array>
+	</array>
 </dict>
 </plist>

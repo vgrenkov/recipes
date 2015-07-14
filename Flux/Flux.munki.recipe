@@ -3,15 +3,15 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest 'The Unarchiver' and imports into Munki.</string>
-    <key>Identifier</key>
-    <string>com.github.autopkg.munki.TheUnarchiver</string>
+    <string>Downloads the current release version of Flux and imports into Munki.</string>
     <key>Input</key>
     <dict>
+        <key>IDENTIFIER</key>
+        <string>com.github.keeleysam.recipes.Flux.munki</string>
         <key>NAME</key>
-        <string>TheUnarchiver</string>
+        <string>Flux</string>
         <key>MUNKI_REPO_SUBDIR</key>
-        <string>apps</string>
+        <string>apps/Flux</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -19,9 +19,11 @@
                 <string>testing</string>
             </array>
             <key>description</key>
-            <string>The Unarchiver is a much more capable replacement for "Archive Utility.app", the built-in archive unpacker program on Mac OS X. The Unarchiver is designed to handle many more formats than Archive Utility, and to better fit in with the design of the Finder.</string>
+            <string>f.lux makes your computer screen look like the room you're in, all the time. When the sun sets, it makes your computer look like your indoor lights. In the morning, it makes things look like sunlight again.
+
+Tell f.lux what kind of lighting you have, and where you live. Then forget about it. f.lux will do the rest, automatically.</string>
             <key>display_name</key>
-            <string>The Unarchiver</string>
+            <string>f.lux</string>
             <key>name</key>
             <string>%NAME%</string>
             <key>unattended_install</key>
@@ -31,10 +33,12 @@
     <key>MinimumVersion</key>
     <string>0.2.0</string>
     <key>ParentRecipe</key>
-    <string>com.github.autopkg.download.TheUnarchiver</string>
+    <string>com.github.keeleysam.recipes.Flux.download</string>
     <key>Process</key>
     <array>
         <dict>
+            <key>Processor</key>
+            <string>Unarchiver</string>
             <key>Arguments</key>
             <dict>
                 <key>archive_path</key>
@@ -44,10 +48,10 @@
                 <key>purge_destination</key>
                 <true/>
             </dict>
-            <key>Processor</key>
-            <string>Unarchiver</string>
         </dict>
         <dict>
+            <key>Processor</key>
+            <string>DmgCreator</string>
             <key>Arguments</key>
             <dict>
                 <key>dmg_root</key>
@@ -55,8 +59,10 @@
                 <key>dmg_path</key>
                 <string>%RECIPE_CACHE_DIR%/%NAME%.dmg</string>
             </dict>
+        </dict>
+        <dict>
             <key>Processor</key>
-            <string>DmgCreator</string>
+            <string>MunkiPkginfoMerger</string>
         </dict>
         <dict>
             <key>Arguments</key>
