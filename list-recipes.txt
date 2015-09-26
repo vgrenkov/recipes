@@ -207,6 +207,11 @@ Skype.download
 Skype.install
 Skype.munki
 Skype.pkg
+Slack.download
+Slack.install
+Slack.jss
+Slack.munki
+Slack.pkg
 Spotify.download
 Spotify.munki
 sqlitebrowser.download
